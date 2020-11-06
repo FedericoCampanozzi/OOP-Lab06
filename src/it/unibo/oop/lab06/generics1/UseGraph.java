@@ -13,7 +13,7 @@ public final class UseGraph {
      *            ignored
      */
     public static void main(final String... args) {
-        final Graph<String> g = null; // new GraphImpl<>();
+        final Graph<String> g = new GraphImpl<>();
         g.addNode("a");
         g.addNode("b");
         g.addNode("c");
@@ -25,17 +25,20 @@ public final class UseGraph {
         g.addEdge("d", "e");
         g.addEdge("c", "a");
         g.addEdge("e", "a");
+        
+        System.out.println(g.toString());
+        
         /*
          * Should print ["a","b","c","d","e"], in any order
          */
-        System.out.println(g.nodeSet());
+        System.out.println("Set di nodi = " + g.nodeSet());
         /*
          * ["d","a"], in any order
          */
-        System.out.println(g.linkedNodes("c"));
+        System.out.println("Nodi per c = " + g.linkedNodes("c"));
         /*
          * Must print either the path b,c,a or b,c,d,e,a
          */
-        System.out.println(g.getPath("b", "a"));
+        System.out.println("Percorso da [b] -> [e] = " + g.getPath("b", "e"));
     }
 }
