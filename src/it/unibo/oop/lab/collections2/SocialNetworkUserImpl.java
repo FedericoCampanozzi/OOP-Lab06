@@ -1,7 +1,10 @@
 package it.unibo.oop.lab.collections2;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -29,7 +32,9 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * 
      * think of what type of keys and values would best suit the requirements
      */
-
+	
+	private Map<String, List<U>> friends;
+	
     /*
      * [CONSTRUCTORS]
      * 
@@ -56,6 +61,7 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      */
     public SocialNetworkUserImpl(final String name, final String surname, final String user, final int userAge) {
         super(name, surname, user, userAge);
+        friends = new HashMap<>();
     }
 
     /*
@@ -64,19 +70,60 @@ public class SocialNetworkUserImpl<U extends User> extends UserImpl implements S
      * Implements the methods below
      */
 
-    @Override
     public boolean addFollowedUser(final String circle, final U user) {
-        return false;
+    	
+    	if(friends.containsKey(circle)) {
+    		friends.get(circle).add(user);
+    		return false;
+    	}
+    	else
+    	{
+    		friends.put(circle, new ArrayList<>());
+    		friends.get(circle).add(user);
+            return true;
+    	}
+    	
     }
-
-    @Override
+    
     public Collection<U> getFollowedUsersInGroup(final String groupName) {
-        return null;
+    	Collection<U> followed = new ArrayList<U>();
+    	if(friends.containsKey(groupName)) {
+    		
+    		for(U usr : friends.get(groupName)) {
+    			followed.add(usr);
+        	}
+    		
+        	return followed;
+        }
+    	
+    	//Se tra gli amici non c'e' group name
+    	return followed;
     }
 
-    @Override
     public List<U> getFollowedUsers() {
-        return null;
+        List<U> allFriends = new ArrayList<U>();
+        
+        for(String s : friends.keySet()) {
+        	for(U usr : friends.get(s)) {
+        		allFriends.add(usr);
+        	}
+        }
+        
+    	return allFriends;
     }
-
+    
+    /*
+	@Override
+	public String toString() {
+		String s = "";
+		for(String g : friends.keySet()) {
+			s += g + " = ["; 
+			for(U usr : friends.get(g)) {
+				s += usr.getFirstName() + " ";
+			}
+			s += " ]\n";
+		}
+		return s;
+	}
+	*/
 }
