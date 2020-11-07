@@ -19,12 +19,14 @@ public final class UseGraph {
         g.addNode("c");
         g.addNode("d");
         g.addNode("e");
+        g.addNode("f");
         g.addEdge("a", "b");
         g.addEdge("b", "c");
         g.addEdge("c", "d");
         g.addEdge("d", "e");
         g.addEdge("c", "a");
         g.addEdge("e", "a");
+        g.addEdge("f", "e");
         
         System.out.println(g.toString());
         
@@ -39,6 +41,6 @@ public final class UseGraph {
         /*
          * Must print either the path b,c,a or b,c,d,e,a
          */
-        System.out.println("Percorso da [b] -> [e] = " + g.getPath("b", "e"));
+        System.out.println("Percorso da [b] -> [e] = " + g.getPath("f", "e"));
     }
 }
