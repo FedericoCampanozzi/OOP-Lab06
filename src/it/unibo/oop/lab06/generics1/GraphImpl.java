@@ -79,9 +79,7 @@ public class GraphImpl<N> implements Graph<N> {
 			return;
 		}
 		
-		Iterator<N> iterator = this.graph.get(node).iterator();
-		while(iterator.hasNext()) {
-			N adjacentEdge = iterator.next();
+		for(N adjacentEdge : this.graph.get(node)) {
 			if(!exploredNodes.getOrDefault(adjacentEdge,false)) {
 				DFS(adjacentEdge, target, list, exploredNodes);
 			}
